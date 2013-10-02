@@ -1,0 +1,59 @@
+Roteiro de testes:
+Apoio:
+http://www.youtube.com/watch?v=jmlgXaocwiE
+
+Como utilizar o POX:
+http://sbrc2012.dcc.ufmg.br/app/pdfs/p-04/mc4.pdf (Pag. 189)
+http://www.voidspace.org.uk/python/articles/OOP.shtml
+
+
+Terminal 1 -Iniciar rede de computadores com mininet:
+sudo mn --topo single,3 --mac --switch ovsk --controller remote
+
+Terminal 2 -Iniciar controlador com funções que serão utilizadas: (debug na tela, log colorido e modo Layer 3)
+~/pox$ ./pox.py forwarding.l3_learning samples.pretty_log log.level --DEBUG
+
+Terminal 3 - Iniciar Wareshark:
+sudo wareshark
+Aplicar filtro no wareshark para facilitar a leitura dos pacotes: ip.src != 127.0.0.1 && of
+
+Terminal 1 -Comandos para testes:
+Ping para entre todos os hosts
+mininet> pingall
+
+Testa velocidade da rede entre dois hosts
+mininet> iperf h3 h2
+
+mininet> h2 ping h4
+
+mininet> xterm h2
+
+mininet> net
+s1 <-> h2-eth0 h3-eth0 h4-eth0
+
+mininet> dump
+c0: IP=127.0.0.1 intfs= pid=1533
+s1: IP=None intfs=s1-eth1,s1-eth2,s1-eth3 pid=1537
+h2: IP=10.0.0.2 intfs=h2-eth0 pid=1534
+h3: IP=10.0.0.3 intfs=h3-eth0 pid=1535
+h4: IP=10.0.0.4 intfs=h4-eth0 pid=1536
+
+mininet> h1 ifconfig
+
+Documented commands (type help <topic>):
+========================================
+EOF    dump  gterm  intfs  iperfudp  net    noecho  quit  source
+dpctl  exit  help   iperf  link      nodes  pingall  py        sh    xterm
+
+
+-----------------------------------------------------------------------------
+Para tentativa de conexões em um determinado host:
+http://www.vivaolinux.com.br/artigo/Netcat-O-canivete-suico-do-TCP-IP?pagina=3
+
+ #nc -vv www.vivaolinux.com.br 110 80 139
+
+
+
+
+
+
